@@ -1,31 +1,28 @@
-# Указываем базовый образ
-FROM python:3.8-slim-buster
+# pull official base image
+FROM python:3.8.3-alpine
 
-# Устанавливаем переменную окружения для Python в режим отладки
+# set work directory
+WORKDIR /usr/src/app
+
+# set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV DEBUG 1
 
-# Устанавливаем зависимости для PostgreSQL и библиотек для Python
-RUN apt-get update \
-    && apt-get install libpq-dev \
-    && apt-get install -y postgresql-client \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# install psycopg2 dependencies
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
+
+
+# install dependencies
 RUN pip install --upgrade pip
-COPY ./requirements.txt /requirements.txt
-RUN pip install -r /requirements.txt
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
 
-# Копируем код приложения в контейнер
-COPY . /app
-WORKDIR /app
+# copy entrypoint.sh
+COPY ./entrypoint.sh .
 
-# Запускаем миграции и собираем статические файлы приложения
-RUN python manage.py migrate
-RUN python manage.py collectstatic --no-input
+# copy project
+COPY . .
 
-# Определяем порт, который будет использоваться для взаимодействия с контейнером
-EXPOSE 8000
-
-# Запускаем команду для запуска приложения внутри контейнера
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# run entrypoint.sh
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
