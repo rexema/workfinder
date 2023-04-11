@@ -6,13 +6,13 @@
 pip install -r requirements.txt
 ```
 
-###  Миграция и загрузка в базу данных о суперпользователе
+### Запуск
 ```sh
-docker-compose exec web python manage.py makemigrations
+docker-compose up --build -d
 ```
-```sh
-docker-compose exec web python manage.py migrate --noinput
+
+### Админ-панель
 ```
-```sh
-docker-compose exec web manage.py loaddata db.json
+login: admin@email.com
+passw: 123
 ```
