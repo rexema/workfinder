@@ -9,24 +9,29 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - ./.env.dev
+      - .env
     environment:
       - DATABASE_URL=${DATABASE_URL}
     expose:
       - 5432
     depends_on:
       - db
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   db:
     image: postgres:13.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./.env.dev
+      - .env
     environment:
       - POSTGRES_USER=${SQL_USER}
       - POSTGRES_PASSWORD=${SQL_PASSWORD}
-      - POSTGRES_DB=${SQL_HOST}
+      - POSTGRES_DB=${SQL_DATABASE}
     ports:
       - "5432:5432"
 
