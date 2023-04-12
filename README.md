@@ -11,6 +11,13 @@ pip install -r requirements.txt
 docker-compose up -d
 ```
 
+Что бы docker-compose запускать без sudo нужно сделать следующее:
+```
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+newgrp docker
+```
+
 ### Первичные действия
 Проводим миграцию и вносим данные о суперпольщователе. Хотя можно создать своего с помощью createsuperuser
 
