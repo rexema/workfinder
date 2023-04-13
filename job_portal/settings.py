@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     'jobapp.apps.JobappConfig',
     'users.apps.UsersConfig',
+
+    'taggit',
 ]
 
 MIDDLEWARE = [

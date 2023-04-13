@@ -1,6 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
+from taggit.managers import TaggableManager
 
-from users.models import User
+User = get_user_model()
 
 JOB_TYPE = (
     ('1', "Полная занятость"),
@@ -26,6 +28,7 @@ class Job(models.Model):
     user = models.ForeignKey(User, related_name='User', on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
     description = models.TextField()
+    tags = TaggableManager()
     location = models.CharField(max_length=300)
     job_type = models.CharField(choices=JOB_TYPE, max_length=1)
     category = models.ForeignKey(Category, related_name='Category', on_delete=models.CASCADE)
@@ -33,7 +36,6 @@ class Job(models.Model):
     company_name = models.CharField(max_length=300)
     company_description = models.TextField()
     url = models.URLField(max_length=200)
-    last_date = models.DateField()
     is_published = models.BooleanField(default=False)
     is_closed = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now=True)
