@@ -1,0 +1,167 @@
+.pad {
+    padding-top: 16px;
+    padding-bottom: 8px;
+}
+
+.nav-item {
+    font-weight: 400;
+}
+
+.login-color {
+    color: #A36BEB;
+}
+
+.header{
+    position: relative;
+    width: 100%;
+    min-width: 320px;
+}
+
+.main-back {
+    display: block;
+    width: 100%;
+}
+
+.header-content {
+    position: absolute;
+    left: 136px;
+    top: 76px;
+    color: #fff;
+    width: 40%;
+}
+
+
+.header-name {
+    font-weight: 400;
+    line-height: 44px;
+}
+
+.form-width {
+    height: 64px;
+}
+
+.btn-custom {
+    color: white;
+    float: right;
+}
+
+.btn-custom:hover {
+    color: #A36BEB;
+}
+
+.btn-custom:focus {
+    box-shadow: 0 0 0 0 #b88bf3;
+}
+
+.footer {
+    background-color: #222324;
+}
+
+.p-color {
+    color: #959799;
+}
+
+.link-dark {
+    text-decoration: none;
+}
+
+.public-time {
+    float: right;
+    padding-top: 42px;
+}
+
+.btn-cust {
+    color: #070101;
+}
+
+.btn-cust:focus {
+    box-shadow: 0 0 0 .25rem #b88bf3;
+}
+
+.page-link {
+    color: #252525;
+}
+
+@media (max-width: 982px) {
+    .main-back {
+        display: none;
+    }
+
+    .header-content {
+        position: static;
+        color: #070101;
+        width: 100%;
+    }
+
+    .header {
+        padding-right: var(--bs-gutter-x,.75rem);
+        padding-left: var(--bs-gutter-x,.75rem);
+        margin-right: auto;
+        margin-left: auto;
+        min-width: 0;
+        background-color: #252525;
+    }
+
+    .btn-custom {
+        color: #A36BEB;
+        float: right;
+    }
+
+    .pad {
+        display: block;
+        margin-left: auto;
+        margin-right: autoж
+    }
+
+    .header-name {
+        color: #ffffff;
+        padding-top: 16px;
+    }
+
+    .col-adat {
+        display: none;
+    }
+
+    .form-width {
+        height: 16px;
+      }
+
+    h1 {
+        margin-bottom: -15px;
+    }
+
+    .border-top {
+        border-top: 1px solid #222324 !important;
+    }
+
+    .public-time {
+        float: right;
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 570px) {
+    .news_adapt {
+        position: relative;
+        width: 100%;
+    }
+
+    .card-adapt {
+        display: block;
+        width: 100%;
+        opacity: 0.6;
+    }
+
+    .news-cont-adapt {
+        position: absolute;
+        left: 5px;
+        max-height: 35px;
+        color: #fff;
+        width: 60%;
+    }
+
+    .color-adapt {
+        color: #242323;
+        font-size: 90%;
+    }
+}

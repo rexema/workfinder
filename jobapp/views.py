@@ -5,6 +5,7 @@ from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
+from django.views.generic import TemplateView
 
 from jobapp.forms import JobForm
 from jobapp.models import Category, Job
@@ -15,6 +16,25 @@ User = get_user_model()
 
 def home_view(request):
     return render(request, 'jobapp/index.html')
+
+
+class NewsPageView(TemplateView):
+    template_name = "jobapp/news.html"
+    """
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["news_qs"] = News.objects.all()
+        return context
+    """
+    
+
+class AboutPageView(TemplateView):
+    template_name = 'jobapp/about.html'
+
+
+class ContactsPageView(TemplateView):
+    template_name = 'jobapp/contacts.html'
+
 
 
 @login_required(login_url=reverse_lazy('users:login'))

@@ -4,9 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
+from django.views.generic import TemplateView
 
 from jobapp.permission import user_is_employee
 from users.forms import *
+
+class ProfilePageView(TemplateView):
+    template_name = "users/profile.html"
 
 
 def get_success_url(request):
@@ -55,7 +59,7 @@ def employer_registration(request):
     return render(request, 'users/employer-registration.html', context)
 
 
-@login_required(login_url=reverse_lazy('userss:login'))
+@login_required(login_url=reverse_lazy('users:login'))
 @user_is_employee
 def employee_edit_profile(request, id=id):
     """

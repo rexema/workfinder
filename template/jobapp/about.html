@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block title %}
+    About
+{% endblock title %}
+
+{% block content %}
+<div class="container py-3">
+    <h1 class="py-2">О нас</h1>
+    <img class="img-fluid py-2" src="{% static 'images/Logo.png' %}" alt="#">
+    <p>"WorkFinder" - веб-приложение для подбора персонала в IT-сфере</p>
+</div>
+
+{% endblock content %}

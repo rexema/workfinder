@@ -1,27 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block header %}
+{% endblock header %}
 {% block content %}
 
-<!-- HOME -->
-<section class="section-hero overlay inner-page bg-image"
-  style="background-image: url('{% static 'images/hero_1.jpg' %}');" id="home-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-7">
-        <h1 class="text-white font-weight-bold">Log In</h1>
-        <div class="custom-breadcrumbs">
-          <a href="{% url 'jobapp:home' %}">Home</a> <span class="mx-2 slash">/</span>
-          <span class="text-white"><strong>Log In</strong></span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 <section class="site-section">
   <div class="container">
     <div class="row">
 
       <div class="col-lg-12 mb-5">
+        <h1 class="py-2">Вход</h1>
 
 
         {% if form.errors %}
@@ -43,7 +31,7 @@
         <form method="POST" action="#" class="p-4 border rounded">
           {% csrf_token %}
           {% for field in form %}
-          <div class="row form-group">
+          <div class="row form-group py-2">
             <div class="col-md-12 mb-3 mb-md-0">
               
               <label class="text-black" for="id_{{ field.name }}">{{ field.label }}</label>
@@ -55,7 +43,7 @@
           {% endfor %}
           <div class="row form-group">
             <div class="col-md-12">
-              <input type="submit" value="Sign In" class="btn px-4 btn-primary text-white">
+              <input type="submit" value="Войти" class="btn btn-outline-danger my-5">
             </div>
           </div>
         </form>
