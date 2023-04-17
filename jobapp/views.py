@@ -8,7 +8,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView
 
 from jobapp.forms import JobForm, JobApplyForm, JobEditForm
-from jobapp.models import Category, Job, Applicant
+from jobapp.models import Category, Job, Applicant, BookmarkJob
 from jobapp.permission import user_is_employer, user_is_employee
 
 User = get_user_model()
