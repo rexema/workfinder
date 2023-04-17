@@ -183,7 +183,7 @@ def apply_job_view(request, id):
         }))
 
 
-@login_required(login_url=reverse_lazy('account:login'))
+@login_required(login_url=reverse_lazy('users:login'))
 def dashboard_view(request):
     """
     """
