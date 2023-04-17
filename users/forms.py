@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.utils import ErrorList
 
+from jobapp.models import Resume
 from users.models import User
 
 
@@ -168,3 +169,54 @@ class EmployeeProfileEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ["first_name", "last_name", "gender"]
+
+
+class ResumeForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        forms.ModelForm.__init__(self, *args, **kwargs)
+        self.fields['title'].label = "Название резюме :"
+        self.fields['title'].widget.attrs.update(
+            {
+                'placeholder': 'Например: Python-разработчик',
+            }
+        )
+        self.fields['photo'].label = "Ваше фото :"
+        self.fields['name'].label = "Имя :"
+        self.fields['surname'].label = "Фамилия :"
+        self.fields['date_birth'].label = "Дата рождения :"
+        self.fields['home_town'].label = "Горд, в котором вы живёте :"
+        self.fields['phone_num'].label = "Номер телефона :"
+        self.fields['job_position'].label = "Желаемая должность :"
+        self.fields['salary'].label = "Желаемая зарплата :"
+        self.fields['skills'].label = "Профессиональные навыки :"
+        self.fields['about_me'].label = "О себе :"
+
+    class Meta:
+        model = Resume
+
+        fields = [
+            "title",
+            'photo',
+            "name",
+            "surname",
+            "date_birth",
+            "home_town",
+            "phone_num",
+            "job_position",
+            "salary",
+            "skills",
+            "about_me"
+        ]
+        widgets = {
+            'date_birth': forms.DateInput(format='%m/%d/%Y',
+                                          attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                 'type': 'date'}),
+            'photo': forms.FileInput(attrs={'accept': 'image/*'})
+        }
+
+    def save(self, commit=True):
+        resume = super(ResumeForm, self).save(commit=False)
+        if commit:
+            resume.save()
+        return resume

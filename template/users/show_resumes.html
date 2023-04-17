@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% load static %}
+<body id="top">
+{% block content %}
+<ul>
+     {% for i in resume%}
+      <li>
+        <h2>{{i.title}}</h2>
+        <h3>{{i.name}} {{i.surname}}</h3>
+        <img src="{{i.photo.url}}" class="card-img-top" alt="..." style="width: 50px;"/>
+        <h5>{{i.date_birth}}</h5>
+        <h5>{{i.home_town}}</h5>
+        <h5>{{i.phone_num}}</h5>
+        <h5>{{i.job_position}}</h5>
+        <h5>{{i.salary}}</h5>
+        <h5>{{i.skills}}</h5>
+
+       <p>
+          {{i.about_me}}
+        </p>
+      </li>
+      {% endfor%}
+</ul>
+
+{%endblock %}
+</body>

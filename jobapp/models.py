@@ -75,10 +75,19 @@ class Resume(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE,
         verbose_name='Соискатель', related_name='resumes')
-    title = models.CharField(max_length=255, verbose_name='Название резюме')
-    description = models.TextField(verbose_name='Описание')
-    experience = models.TextField(verbose_name='Опыт работы')
-    salary = models.PositiveIntegerField(verbose_name='Желаемая заработная плата')
+
+    title = models.CharField(default=None, max_length=255, verbose_name='Название резюме')
+    photo = models.ImageField(null=True, blank=True, upload_to='images/', height_field=None, width_field=None,
+                              max_length=100)
+    name = models.CharField(default=None, blank=False, max_length=50, verbose_name='Имя')
+    surname = models.CharField(default=None, blank=False, max_length=100, verbose_name='Фамилия')
+    date_birth = models.DateField(default=None, verbose_name='Дата рождения')
+    home_town = models.CharField(default=None, verbose_name='Город, где вы проживаете', max_length=80)
+    phone_num = models.CharField(default=None, verbose_name='Номер телефона', max_length=50)
+    job_position = models.CharField(default=None, verbose_name='Желаемая должность', max_length=100)
+    salary = models.PositiveIntegerField(default=None, verbose_name='Желаемая заработная плата')
+    skills = models.CharField(default=None, verbose_name='Профессиональные навыки', max_length=100)
+    about_me = models.TextField(default=None, verbose_name='О себе')
 
     def __str__(self):
         return self.title
