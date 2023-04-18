@@ -3,7 +3,8 @@
 <nav class="py-2 bg-light border-bottom">
     <div class="container d-flex flex-wrap pad">
         <ul class="nav me-auto">
-            <li class="nav-item"><a href="{% url 'jobapp:home' %}" class="nav-link link-dark px-2 active navbar-brand" aria-current="page">WorkFinder</a></li>
+            <li class="nav-item"><a href="{% url 'jobapp:home' %}" class="nav-link link-dark px-2 active navbar-brand"
+                    aria-current="page">WorkFinder</a></li>
         </ul>
         <ul class="nav">
             <li class="nav-item"><a href="{% url 'jobapp:news' %}" class="nav-link link-dark px-4">Новости</a></li>
@@ -12,19 +13,39 @@
             <li class="nav-item"><a href="{% url 'jobapp:contacts' %}" class="nav-link link-dark px-4">Контакты</a></li>
 
             {% if user.is_authenticated and user.role == 'employer' %}
-            <li class="nav-item"><a href="{% url 'jobapp:create-job' %}" class="nav-link link-dark px-4">Опубликовать вакансию</a></li>
-            <li class="nav-item"><a href="{% url 'users:logout' %}" class="nav-link link-dark px-4">Выйти</a></li>
+            <!-- <li class="nav-item"><a href="{% url 'jobapp:create-job' %}" class="nav-link link-dark px-4">Опубликовать
+                    вакансию</a></li>
+            <li class="nav-item"><a href="{% url 'users:logout' %}" class="nav-link link-dark px-4">Выйти</a></li> -->
 
-            {% elif user.is_authenticated %}
             <li class="nav-item">
                 <div class="dropdown">
-                    <button class="btn btn-cust dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-cust dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Кабинет
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'jobapp:job-list' %}" class="nav-link link-dark px-4">Список вакансий</a>
+                        </li>
+                        <li><a href="{% url 'jobapp:create-job' %}" class="nav-link link-dark px-4">Опубликовать
+                                вакансию</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item"><a href="{% url 'users:logout' %}" class="nav-link link-dark px-4">Выйти</a></li>
+
+            {% elif user.is_authenticated and user.role == 'employee' %}
+            <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn btn-cust dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         Профиль
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'users:profile' %}" class="nav-link link-dark px-4">Профиль</a></li>
-                        <li><a href="{% url 'users:edit-profile' id=user.id %}" class="nav-link link-dark px-4">Редактировать профиль</a></li>
-                        <li><a href="{% url 'users:add-resume' %}" class="nav-link link-dark px-4">Добавить резюме</a></li>
+                        <li><a href="{% url 'users:edit-profile' id=user.id %}"
+                                class="nav-link link-dark px-4">Редактировать профиль</a></li>
+                        <li><a href="{% url 'users:add-resume' %}" class="nav-link link-dark px-4">Добавить резюме</a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -34,16 +55,20 @@
             {% else %}
             <li class="nav-item">
                 <div class="dropdown">
-                    <button class="btn btn-cust dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-cust dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         Регистрация
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item btn-cust" href="{% url 'users:employer-registration' %}">Я работодатель</a></li>
-                        <li><a class="dropdown-item btn-cust" href="{% url 'users:employee-registration' %}">Я соискатель</a></li>
+                        <li><a class="dropdown-item btn-cust" href="{% url 'users:employer-registration' %}">Я
+                                работодатель</a></li>
+                        <li><a class="dropdown-item btn-cust" href="{% url 'users:employee-registration' %}">Я
+                                соискатель</a></li>
                     </ul>
                 </div>
             </li>
-            <li class="nav-item"><a href="{% url 'users:login' %}" class="nav-link link-dark px-4 login-color">Войти</a></li>
+            <li class="nav-item"><a href="{% url 'users:login' %}" class="nav-link link-dark px-4 login-color">Войти</a>
+            </li>
             {% endif %}
         </ul>
     </div>

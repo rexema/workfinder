@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import User
+from .models import User, Resume
 
 
 class AddUserForm(forms.ModelForm):
@@ -60,11 +60,13 @@ class UserAdmin(BaseUserAdmin):
     form = UpdateUserForm
     add_form = AddUserForm
 
-    list_display = ('email', 'first_name', 'last_name', 'gender', 'role', 'is_staff')
+    list_display = ('email', 'first_name', 'last_name',
+                    'gender', 'role', 'is_staff')
     list_filter = ('is_staff',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'gender', 'role',)}),
+        ('Personal info', {
+         'fields': ('first_name', 'last_name', 'gender', 'role',)}),
         ('Permissions', {'fields': ('is_active', 'is_staff')}),
     )
     add_fieldsets = (
@@ -84,4 +86,10 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
+class ResumeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'user', 'name', 'surname')
+    list_filter = ('title',)
+
+
 admin.site.register(User, UserAdmin)
+admin.site.register(Resume, ResumeAdmin)
