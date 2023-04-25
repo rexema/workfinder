@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView
 
-from jobapp.forms import JobForm, JobApplyForm, JobEditForm
+from jobapp.forms import JobForm, JobApplyForm, JobEditForm, JobBookmarkForm
 from jobapp.models import Category, Job, Applicant, BookmarkJob
 from jobapp.permission import user_is_employer, user_is_employee
 
@@ -124,17 +124,17 @@ def search_result_view(request):
             job_list = job_list.filter(title__icontains=job_title_or_company_name) | job_list.filter(
                 company_name__icontains=job_title_or_company_name)
 
-    # location
-    if 'location' in request.GET:
-        location = request.GET['location']
-        if location:
-            job_list = job_list.filter(location__icontains=location)
-
-    # Job Type
-    if 'job_type' in request.GET:
-        job_type = request.GET['job_type']
-        if job_type:
-            job_list = job_list.filter(job_type__iexact=job_type)
+    # # location
+    # if 'location' in request.GET:
+    #     location = request.GET['location']
+    #     if location:
+    #         job_list = job_list.filter(location__icontains=location)
+    #
+    # # Job Type
+    # if 'job_type' in request.GET:
+    #     job_type = request.GET['job_type']
+    #     if job_type:
+    #         job_list = job_list.filter(job_type__iexact=job_type)
 
     paginator = Paginator(job_list, 10)
     page_number = request.GET.get('page')
