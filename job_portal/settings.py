@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # add apps
+    'parser',
     'jobapp.apps.JobappConfig',
     'users.apps.UsersConfig',
-
     'taggit',
 ]
 
