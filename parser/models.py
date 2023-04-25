@@ -18,26 +18,7 @@ class Vacancy_Parsed(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['created_date']
-   
-    class Admin:
-        pass
-
-
-class Resume_Parsed(models.Model):
-    """
-    Модель Парсинга резюме
-    """
-    url = models.CharField(max_length=250, unique=True)
-    title = models.CharField(max_length=250)
-    location = models.CharField(max_length=250)
-    created_date = models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        ordering = ['title']
+        ordering = ['-created_date']
    
     class Admin:
         pass

@@ -4,25 +4,22 @@
 {% endblock header %}
 {% block content %}
 <br>
-<br>
-<br>
-<br>
-<br>
 <h1>Подборка вакансий</h1>
+<br><br>
+
+{% for item in vacancy %}
+    <h3>{{ item.title }}</h3>
+    <h5>{{ item.created_date }}</h5>
+    <p>Зарплата: {{ item.salary }}</p>
+    <a href="{{ item.url }}">{{ item.name_company }}</a>
+    <p>{{ item.adress_company }}</p>
+    <p>Ключевые навыки: {{ item.key_skills }}</p>
+    <br><br>
+{% endfor %}
 
 
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 {% endblock content %}

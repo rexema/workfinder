@@ -72,6 +72,9 @@ def get_data_from_link(link):
         key_skills = ', '.join([tag.text for tag in soup.find(attrs={"class": "bloko-tag-list"}).find_all(attrs={"class":"bloko-tag__section_text"})]).replace("\xa0", " ")
     except:
         key_skills = "Python3"
+    
+    description = ''
+    
     """
     данные для Модели Парсинга вакансий
     """
@@ -81,7 +84,7 @@ def get_data_from_link(link):
         "url": link,
         "name_company": name_company,
         "adress_company": adress_company,
-        # "description": description,
+        "description": description,
         "key_skills": key_skills,
         }
     return vacancy_data
