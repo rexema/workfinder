@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1>Подборка вакансий</h1>
+
+<form action="{% url 'parser:show_vacancy' %}">
+    <select name="max_count_vacancy">
+        <option value="1">20</option>
+        <option value="2">40</option>
+        <option value="3">60</option>
+    </select>
+    <select name="specialization">
+        <option value="python">python</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="Java">Java</option>
+    </select>
+    <input type="submit" value="Подбобрать вакансий">
+</form>
+
+<h3> !!! Внимание в данной реализации подбор вакансий займет время.
+    <br> Пожалуйста подождите</h3>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

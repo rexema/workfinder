@@ -7,12 +7,9 @@ import json
 # create User Agent
 UA = fake_useragent.UserAgent()
 
-# MAX PAGE, 1 page = 20 links
-MAX_PAGE = 1
 
-VACANCY_NAME = 'python'
 
-def get_links(text, page_count=MAX_PAGE):
+def get_links(text, max_page):
     url_adress = f"https://hh.ru/search/vacancy?text={text}&salary=&area=1&ored_clusters=true&page=0"
     data = requests.get(
         url=url_adress,
@@ -24,7 +21,7 @@ def get_links(text, page_count=MAX_PAGE):
     
     
     # get links
-    for page in range(page_count):
+    for page in range(max_page):
         try:
             url_adress = f"https://hh.ru/search/vacancy?text={text}&salary=&area=1&ored_clusters=true&page={page}"
             data = requests.get(
@@ -38,7 +35,7 @@ def get_links(text, page_count=MAX_PAGE):
                 yield f"{a.attrs['href'].split('?')[0]}"
         except Exception as e:
             print(f"{e}")
-        time.sleep(1)
+        # time.sleep(0.5)
         
     
 
@@ -89,11 +86,17 @@ def get_data_from_link(link):
         }
     return vacancy_data
 
+data = []
 
-if __name__ == '__main__':
-    data = []
-    for a in get_links(VACANCY_NAME):
+def run_parser(VACANCY_NAME, MAX_PAGE):
+    for a in get_links(VACANCY_NAME, MAX_PAGE):
         data.append(get_data_from_link(a))
-        time.sleep(1)
+        time.sleep(0.5)
         with open("parser/vacancy_data.json", "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
+
+if __name__ == '__main__':
+    # MAX PAGE, 1 page = 20 links
+    MAX_PAGE = 1
+    VACANCY_NAME = 'python'
+    run_parser(VACANCY_NAME, MAX_PAGE)
