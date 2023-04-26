@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from parser.parser import run_parser, get_links, get_data_from_link
-from parser.models import Vacancy_Parsed
+from parserapp.run_parser import get_links, get_data_from_link
+from parserapp.models import Vacancy_Parsed
 
 
 # Create your views here.
@@ -8,7 +8,7 @@ def set_parser(request):
     """
     Страница с параметрами запуска парсера
     """
-    return render(request, 'parser/run_parser.html')
+    return render(request, 'parserapp/run_parser.html')
 
 def parse_vacancy(request):
 
@@ -26,9 +26,9 @@ def parse_vacancy(request):
             new_vacancy.save()
         except:
             continue
-    return render(request, 'parser/parse_vacancy.html')
+    return render(request, 'parserapp/parse_vacancy.html')
 
 
 def show_vacancy(request):
     vacancy = Vacancy_Parsed.objects.all()
-    return render(request, 'parser/show_vacancy.html', {'vacancy': vacancy})
+    return render(request, 'parserapp/show_vacancy.html', {'vacancy': vacancy})

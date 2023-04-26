@@ -95,7 +95,7 @@ def run_parser(VACANCY_NAME, MAX_PAGE):
     for a in get_links(VACANCY_NAME, MAX_PAGE):
         data.append(get_data_from_link(a))
         time.sleep(0.5)
-        with open("parser/vacancy_data.json", "w", encoding="utf-8") as f:
+        with open("parserapp/vacancy_data.json", "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
 
 if __name__ == '__main__':
