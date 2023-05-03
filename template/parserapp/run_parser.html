@@ -3,41 +3,24 @@
 {% block header %}
 {% endblock header %}
 {% block content %}
-<br>
-<br>
-<br>
-<br>
-<br>
-<h1>Подборка вакансий</h1>
+<div class="container">
+    <h1 class="py-5">Запустить парсер</h1>
+    <h3 class="text-danger"> !!! Внимание в данной реализации подбор вакансий займет время.
+        <br> Пожалуйста подождите</h3>
+    <form action="{% url 'parserapp:parse_vacancy' %}" class="py-5">
+        <select name="max_count_vacancy">
+            <option value="1">20</option>
+            <option value="2">40</option>
+            <option value="3">60</option>
+        </select>
+        <select name="specialization">
+            <option value="python">python</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Java">Java</option>
+        </select>
+        <br>
+        <input type="submit" value="Подобрать вакансии" class="my-5 btn btn-outline-danger"> 
+    </form>
+</div>
 
-<form action="{% url 'parserapp:parse_vacancy' %}">
-    <select name="max_count_vacancy">
-        <option value="1">20</option>
-        <option value="2">40</option>
-        <option value="3">60</option>
-    </select>
-    <select name="specialization">
-        <option value="python">python</option>
-        <option value="JavaScript">JavaScript</option>
-        <option value="Java">Java</option>
-    </select>
-    <input type="submit" value="Подбобрать вакансий">
-</form>
-
-<h3> !!! Внимание в данной реализации подбор вакансий займет время.
-    <br> Пожалуйста подождите</h3>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 {% endblock content %}

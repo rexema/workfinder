@@ -3,26 +3,9 @@
 {% block header %}
 {% endblock header %}
 {% block content %}
-<br>
-<br>
-<br>
-<br>
-<br>
-<h1>Вакансии подобранны</h1>
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div class="container">
+    <h1 class="py-5">Вакансии подобранны</h1>
+    <a href="{% url 'parserapp:show_vacancy' %}" class="my-2 btn btn-outline-danger">Список подобанных вакансий</a>
+</div>
+<div class="py-5"></div>
 {% endblock content %}

@@ -3,28 +3,8 @@
 {% load is_job_already_applied %}
 {% load is_job_already_saved %}
 {% block content %}
-<!-- HOME -->
-
-
-<section class="section-hero overlay inner-page bg-image"
-  style="background-image: url('{% static 'img/hero_1.png' %}');" id="home-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-7">
-        <h1 class="text-white font-weight-bold">{{ job.title }}</h1>
-        <div class="custom-breadcrumbs">
-          <a href="{% url 'jobapp:home' %}">Home</a> <span class="mx-2 slash">/</span>
-          <a href="{% url 'jobapp:job-list' %}">Job</a> <span class="mx-2 slash">/</span>
-          <span class="text-white"><strong>{{ job.title }}</strong></span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 <section class="site-section">
-  <div class="container">
+  <div class="container py-5">
     {% include 'messages.html' %}
 
     <div class="row align-items-center mb-5">
@@ -33,7 +13,7 @@
           <div class="border p-2 d-inline-block mr-3 rounded">
             <img src="{% static 'img/job_logo_2.jpg' %}" alt="Image">
           </div>
-          <div>
+          <div class="mx-2">
             <h2>{{ job.title }}</h2>
             <div>
               <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span><a href="{{ job.url }}">{{ job.company_name }}</a></span>
@@ -213,17 +193,6 @@
             </li>
           </ul>
         </div>
-
-        <div class="bg-light p-3 border rounded">
-          <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Share</h3>
-          <div class="px-3">
-            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-facebook"></span></a>
-            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-twitter"></span></a>
-            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-linkedin"></span></a>
-            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-pinterest"></span></a>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>

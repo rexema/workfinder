@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {% load static %}
+{% extends 'base.html' %} 
+{% load static %}
+{% block header %}
+{% endblock header %}
 <body id="top">
 {% block content %}
 
@@ -6,15 +9,14 @@
 <section class="site-section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 mb-5"><h2>Резюме</h2>
+      <div class="col-lg-12 mb-5">
+        <h1 class="py-5">Резюме</h1>
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-      {% for field in form %}
-         <div class="row form-group">
+          {% for field in form %}
+          <div class="row form-group py-2">
             <div class="col-md-12 mb-3 mb-md-0">
-              <label class="text-black" for="id_{{ field.name }}"
-                >{{ field.label }}</label
-              >
+              <label class="text-black" for="id_{{ field.name }}">{{ field.label }}</label>
               <input
                 type="{{ field.field.widget.input_type }}"
                 class="form-control"
@@ -24,14 +26,13 @@
               />
             </div>
           </div>
-
-           {% endfor %}
+          {% endfor %}
           <div class="row form-group">
-            <div class="col-md-12">
+            <div class="col-md-12 py-5">
               <input
                 type="submit"
                 value="Добавить резюме"
-                class="btn px-4 btn-primary text-white"
+                class="btn btn-outline-danger"
               />
             </div>
           </div>
