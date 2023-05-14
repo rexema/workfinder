@@ -17,3 +17,5 @@ soupsieve==2.4.1
 sqlparse==0.4.3
 urllib3==1.26.15
 gunicorn==20.1.0
+whitenoise==6.2.0
+Brotli==1.0.9
