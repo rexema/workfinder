@@ -3,23 +3,17 @@
 {% block header %}
 {% endblock header %}
 {% block content %}
-<br>
-<h1>Подборка вакансий</h1>
-<br><br>
-
-{% for item in vacancy %}
-    <h3>{{ item.title }}</h3>
-    <h5>{{ item.created_date }}</h5>
-    <p>Зарплата: {{ item.salary }}</p>
-    <a href="{{ item.url }}">{{ item.name_company }}</a>
-    <p>{{ item.adress_company }}</p>
-    <p>Ключевые навыки: {{ item.key_skills }}</p>
-    <br><br>
-{% endfor %}
-
-
-<br>
-<br>
-<br>
-
+<div class="container">
+    <h1 class="py-5">Подборка вакансий</h1>
+    {% for item in vacancy %}
+    <div class="border border-4 my-3 p-2">
+        <h3>{{ item.title }}</h3>
+        <h5>{{ item.created_date }}</h5>
+        <p>Зарплата: {{ item.salary }}</p>
+        <a href="{{ item.url }}">{{ item.name_company }}</a>
+        <p>{{ item.adress_company }}</p>
+        <p>Ключевые навыки: {{ item.key_skills }}</p>
+    </div>    
+    {% endfor %}
+</div>
 {% endblock content %}

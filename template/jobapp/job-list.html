@@ -1,28 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
-
-<!-- HOME -->
-<section class="section-hero overlay inner-page bg-image" style="background-image: url('{% static 'img/hero_1.png' %}');"
-  id="home-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-7">
-        <h1 class="text-white font-weight-bold">Jobs</h1>
-        <div class="custom-breadcrumbs">
-          <a href="{% url 'jobapp:home' %}">Home</a> <span class="mx-2 slash">/</span>
-          <span class="text-white"><strong>Jobs</strong></span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="ajax_listing_paginattion" class="site-section services-section bg-light block__62849" id="next-section">
   <div class="container">
+    <div class="row py-5">
+      <h1 class="py-5">Список вакансий</h1>
 
-    <div class="row">
+      {% if user.role == 'employer' %}
+      <div>
+        <a href="{% url 'jobapp:create-job' %}" class=" btn btn-outline-danger my-5">Создать вакансию</a>
+      </div>
+      {% endif %}
+        
       {% for job in page_obj %}
       <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
         <a href="{% url 'jobapp:single-job' job.id %}" class="block__16443 min-h text-center d-block">
