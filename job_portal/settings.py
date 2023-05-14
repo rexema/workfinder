@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # add apps
-    'parserapp',
+    'parserapp.apps.ParserConfig',
     'jobapp.apps.JobappConfig',
     'users.apps.UsersConfig',
     'taggit',
