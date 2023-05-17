@@ -3,8 +3,10 @@
 {% block header %}
 {% endblock header %}
 {% block content %}
-<div class="container">
-    <h1 class="py-5">Профиль</h1>
+<div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <h1 class="py-5">Профиль</h1>
 
     <h4 class="py-2">Фамилия</h4>
     <p>{{ user.last_name }}</p>
@@ -17,9 +19,20 @@
 
     <h4 class="py-2">Пол</h4>
     <p>{{ user.gender }}</p>
-    
     <button class="btn btn-outline-danger my-5"><a href="{% url 'users:edit-profile' id=user.id %}" class="nav-link link-dark px-4">Редактировать Профиль</a></button>
-</div>
+      </div>
+      <div class="col">
+        <button class="btn btn-outline-danger my-5"><a href="{% url 'users:show-resume' id=user.id %}" class="nav-link link-dark px-4">Посмотреть резюме </a></button>
+        <br>
+        <button class="btn btn-outline-danger my-5"><a href="{% url 'users:add-experience' %}" class="nav-link link-dark px-4">Добавить опыт работы </a></button>
+        <br>
+        <button class="btn btn-outline-danger my-5"><a href="{% url 'users:add-education' %}" class="nav-link link-dark px-4">Добавить образование </a></button>
+      </div>
+      </div>
+      
+    </div>
+   
+  </div>
 
-
+  
 {% endblock content %}
