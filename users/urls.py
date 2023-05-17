@@ -16,4 +16,6 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('profile/resume/', views.resume_add, name='add-resume'),
     path('profile/resume/<int:id>/', views.show_resume, name='show-resume'),
+    path('profile/resume/experience/', views.experience_add, name='add-experience'),
+    path('profile/resume/education/', views.education_add, name='add-education')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
