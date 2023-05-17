@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from taggit.managers import TaggableManager
 
+
+
 User = get_user_model()
 
 JOB_TYPE = (
@@ -72,9 +74,7 @@ class Resume(models.Model):
     """
     Модель резюме
     """
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE,
-        verbose_name='Соискатель', related_name='resumes')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', related_name='resumes')
 
     title = models.CharField(default=None, max_length=255, verbose_name='Название резюме')
     photo = models.ImageField(null=True, blank=True, upload_to='images/', height_field=None, width_field=None,
@@ -95,3 +95,28 @@ class Resume(models.Model):
     class Meta:
         verbose_name = 'Резюме'
         verbose_name_plural = 'Резюме'
+
+
+class Experience(models.Model):
+    """
+    Модель Опыт работы
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    start_date = models.DateField(default=None, verbose_name='Начало работы')
+    end_date = models.DateField(default=None, verbose_name='Окончание')
+    company = models.CharField(default=None, verbose_name='Организация', max_length=100)
+    position = models.CharField(default=None, verbose_name='Должность', max_length=100)
+    responsibilities =models.TextField(default=None, verbose_name='Обязанности')
+
+
+class Education(models.Model):
+    """
+    Модель Образование
+    """
+    
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    university = models.CharField(default=None, verbose_name='Учебное заведение', max_length=200)
+    faculty = models.CharField(default=None, verbose_name='Факультет', max_length=200)
+    specialization = models.CharField(default=None, verbose_name='Специализация', max_length=200)
+    graduation_year = models.DateField(default=None, verbose_name='Год окончания')
