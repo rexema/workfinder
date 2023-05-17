@@ -2,8 +2,10 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.utils import ErrorList
-
-from jobapp.models import Resume
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Layout, Row, Column
+from crispy_forms.bootstrap import FormActions
+from jobapp.models import Education, Resume, Experience
 from users.models import User
 
 
@@ -220,3 +222,49 @@ class ResumeForm(forms.ModelForm):
         if commit:
             resume.save()
         return resume
+
+
+class ExperienceForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        forms.ModelForm.__init__(self, *args, **kwargs)
+        self.fields['start_date'].label = "Начало работы"
+        self.fields['end_date'].label = "Окончание"
+        self.fields['company'].label = "Организация"
+        self.fields['position'].label = "Должность"
+        self.fields['responsibilities'].label = "Обязанности на рабочем месте"
+        
+
+    class Meta:
+        model = Experience
+
+        fields = [
+            'start_date', 'end_date', 'company', 'position', 'responsibilities'
+        ]
+        widgets = {
+            'start_date': forms.DateInput(format='%m/%d/%Y',
+                                          attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                 'type': 'date'}),
+            'end_date': forms.DateInput(format='%m/%d/%Y',
+                                          attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                 'type': 'date'}),
+        }
+
+    def save(self, commit=True):
+        experience = super(ExperienceForm, self).save(commit=False)
+        if commit:
+            experience.save()
+        return experience
+    
+
+
+       
+class EducationForm(forms.ModelForm):
+    
+      class Meta:
+            model = Education
+            fields = ['university',  'faculty', 'specialization', 'graduation_year']
+            widgets = {'graduation_year': forms.DateInput(format='%m/%d/%Y',
+                                          attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                 'type': 'date'})}
+     
