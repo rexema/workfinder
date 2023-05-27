@@ -187,7 +187,7 @@ class ResumeForm(forms.ModelForm):
         self.fields['name'].label = "Имя :"
         self.fields['surname'].label = "Фамилия :"
         self.fields['date_birth'].label = "Дата рождения :"
-        self.fields['home_town'].label = "Горд, в котором вы живёте :"
+        self.fields['home_town'].label = "Город, в котором вы живёте :"
         self.fields['phone_num'].label = "Номер телефона :"
         self.fields['job_position'].label = "Желаемая должность :"
         self.fields['salary'].label = "Желаемая зарплата :"
