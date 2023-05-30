@@ -2,8 +2,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from taggit.managers import TaggableManager
 
-
-
 User = get_user_model()
 
 JOB_TYPE = (
@@ -106,15 +104,14 @@ class Experience(models.Model):
     end_date = models.DateField(default=None, verbose_name='Окончание')
     company = models.CharField(default=None, verbose_name='Организация', max_length=100)
     position = models.CharField(default=None, verbose_name='Должность', max_length=100)
-    responsibilities =models.TextField(default=None, verbose_name='Обязанности')
+    responsibilities = models.TextField(default=None, verbose_name='Обязанности')
 
 
 class Education(models.Model):
     """
     Модель Образование
     """
-    
-    
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     university = models.CharField(default=None, verbose_name='Учебное заведение', max_length=200)
     faculty = models.CharField(default=None, verbose_name='Факультет', max_length=200)
