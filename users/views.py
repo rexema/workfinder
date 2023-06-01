@@ -10,7 +10,7 @@ from users.forms import ExperienceForm
 from jobapp.models import Resume
 from jobapp.permission import user_is_employee
 from users.forms import *
-
+from django.core.paginator import Paginator
 
 class ProfilePageView(TemplateView):
     template_name = "users/profile.html"
@@ -130,7 +130,7 @@ def resume_add(request):
 
             instance.save()
             form.save()
-
+            return redirect(reverse('users:show-resume', kwargs={'id': user.id }))
     context = {
         'form': form,
 
@@ -144,9 +144,9 @@ def show_resume(request, id):
     """
     Смотреть детали резюме
     """
-    resumes = Resume.objects.filter(user_id=id)
+    resumes = Resume.objects.filter(user_id=id) 
     experience = Experience.objects.filter(user_id=id)
-    education = Education.objects.filter(user_id=id)
+    education = Education.objects.filter(user_id=id)   
     context = {'resume': resumes, 'experience': experience, 'education': education}
     return render(request, 'users/show_resumes.html', context)
 
@@ -161,6 +161,8 @@ def experience_add(request):
             instance.user = user
             instance.save()
             form.save()
+            return redirect(reverse('users:show-resume', kwargs={'id': user.id }))
+
 
     context = {
         'form': form,
@@ -180,6 +182,7 @@ def education_add(request):
             instance.user = user
             instance.save()
             form.save()
+            return redirect(reverse('users:show-resume', kwargs={'id': user.id }))
 
     context = {
         'form': form,
@@ -188,3 +191,59 @@ def education_add(request):
     }
 
     return render(request, 'users/education.html', context)
+
+
+def resume_list_view(request):
+    """
+    Отобразить список вакансий
+    """
+    resume_list = Resume.objects.all()
+    paginator = Paginator(resume_list, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+
+        'page_obj': page_obj,
+
+    }
+    return render(request, 'users/resume-list.html', context)
+
+
+def resume_single(request, id):
+    resume = Resume.objects.filter(user_id=id)
+    experience = Experience.objects.filter(user_id=id)
+    education = Education.objects.filter(user_id=id)
+    context = {
+        'resume': resume,
+        'experience': experience,
+        'education': education,
+
+    }
+
+    return render(request, 'users/single-resume.html', context)
+
+
+@login_required(login_url=reverse_lazy('users:login'))
+@user_is_employee
+def employee_edit_resume(request, id=id):
+    """
+    Handle Employee Resume Update Functionality
+
+    """
+    resume = get_object_or_404(Resume, user_id=id)
+    form = EmployeeResumeEditForm(request.POST or None, instance=resume)
+    if form.is_valid():
+        form = form.save()
+        messages.success(request, 'Ваше резюме успешно обновлено!')
+        return redirect(reverse("users:edit-resume", kwargs={
+            'id': form.user_id
+        }))
+    context = {
+        'resume': resume,
+
+        'form': form,
+       
+    }
+
+    return render(request, 'users/employee-edit-resume.html', context)
