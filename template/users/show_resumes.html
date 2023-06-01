@@ -49,11 +49,9 @@
       </tbody>
       {% endfor %}
     </table>
-    <br />
     <div class="header-h1">
       <h1>Опыт работы</h1>
     </div>
-
     <table class="table">
       {% for e in experience %}
 
@@ -110,9 +108,14 @@
       </tbody>
       {% endfor %}
     </table>
+ 
+  <br />
+  <br />
+    <button class="btn btn-outline-danger my-5"><a href="{% url 'users:add-education' %}" class="nav-link link-dark px-4">Добавить образование</a></button>
+    <button class="btn btn-outline-danger my-5"><a href="{% url 'users:add-experience' %}" class="nav-link link-dark px-4">Добавить опыт работы</a></button>
+  
   </div>
-  <br />
-  <br />
 
   {%endblock %}
+
 </body>
