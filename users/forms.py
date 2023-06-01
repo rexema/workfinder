@@ -1,3 +1,4 @@
+from typing import Any
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -14,36 +15,36 @@ class EmployeeRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         UserCreationForm.__init__(self, *args, **kwargs)
         self.fields['gender'].required = True
-        self.fields['first_name'].label = "First Name :"
-        self.fields['last_name'].label = "Last Name :"
-        self.fields['password1'].label = "Password :"
-        self.fields['password2'].label = "Confirm Password :"
+        self.fields['first_name'].label = "Имя :"
+        self.fields['last_name'].label = "Фамилия :"
+        self.fields['password1'].label = "Пароль :"
+        self.fields['password2'].label = "Подтвердите пароль :"
         self.fields['email'].label = "Email :"
-        self.fields['gender'].label = "Gender :"
+        self.fields['gender'].label = "Пол :"
 
         self.fields['first_name'].widget.attrs.update(
             {
-                'placeholder': 'Enter First Name',
+                'placeholder': 'Введите ваше имя',
             }
         )
         self.fields['last_name'].widget.attrs.update(
             {
-                'placeholder': 'Enter Last Name',
+                'placeholder': 'Введите вашу фамилию',
             }
         )
         self.fields['email'].widget.attrs.update(
             {
-                'placeholder': 'Enter Email',
+                'placeholder': 'Укажите Email',
             }
         )
         self.fields['password1'].widget.attrs.update(
             {
-                'placeholder': 'Enter Password',
+                'placeholder': 'Введите пароль',
             }
         )
         self.fields['password2'].widget.attrs.update(
             {
-                'placeholder': 'Confirm Password',
+                'placeholder': 'Подтвердите пароль',
             }
         )
 
@@ -268,3 +269,38 @@ class EducationForm(forms.ModelForm):
                                           attrs={'class': 'form-control', 'placeholder': 'Select a date',
                                                  'type': 'date'})}
      
+
+class EmployeeResumeEditForm(forms.ModelForm):   
+   
+          
+    
+    class Meta:
+        model = Resume
+        fields =   ["title",
+            'photo',
+            "name",
+            "surname",           
+            "home_town",
+            "phone_num",
+            "job_position",
+            "salary",
+            "skills",
+            "about_me"]
+
+    def save(self, commit=True):
+        resume = self.instance
+        resume.title = self.cleaned_data['title']
+        resume.name = self.cleaned_data['name']
+        resume.surname = self.cleaned_data['surname']       
+        resume.home_town = self.cleaned_data['home_town']
+        resume.phone_num = self.cleaned_data['phone_num']
+        resume.job_position = self.cleaned_data['job_position']
+        resume.salary = self.cleaned_data['salary']
+        resume.skills = self.cleaned_data['skills']
+        resume.about_me = self.cleaned_data['about_me']
+        if self.cleaned_data['photo']:
+            resume.photo = self.cleaned_data['photo']
+
+        if commit:
+            resume.save()
+        return resume
