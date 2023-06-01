@@ -1,0 +1,115 @@
+{% extends 'base.html' %} {% load static %}
+
+<body id="top">
+  {% block content %}
+  <div class="container text-center">
+    <table class="table">
+      {% for i in resume %}
+      <tbody>
+        <tr>
+          <th scope="row">Название резюме</th>
+          <td>{{i.title}}</td>
+        </tr>
+          <tr>
+          <th scope="row">Имя соискателя</th>
+          <td>{{i.name}} {{i.surname}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Дата рождения</th>
+          <td>{{i.date_birth}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Место проживания</th>
+          <td>{{i.home_town}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Номер телефона</th>
+          <td>{{i.phone_num}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Желаемая должность</th>
+          <td>{{i.position}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Желаемая зарплата</th>
+          <td>{{i.salary}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Навыки</th>
+          <td>{{i.skills}}</td>
+        </tr>
+        <tr>
+          <th scope="row">О себе</th>
+          <td>{{i.about_me}}</td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+    <br />
+    <div class="header-h1">
+      <h1>Опыт работы</h1>
+    </div>
+
+    <table class="table">
+      {% for e in experience %}
+
+      <tbody>
+        <tr>
+          <th scope="row">Компания</th>
+          <td>{{e.company}}</td>
+        </tr>
+         <th scope="row">Должность</th>
+          <td>{{e.position}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Дата начала работы</th>
+          <td>{{e.start_date}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Дата окончания работы</th>
+          <td>{{e.end_date}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Обязанности на рабочем месте</th>
+          <td>{{e.responsibilities}}</td>
+        </tr>
+        
+      </tbody>
+      {% endfor %}
+    </table>
+      
+
+    <br />
+    <div class="header-h1">
+      <h1>Образование</h1>
+    </div>
+
+    <table class="table">
+      {% for ed in education %}
+      <tbody>
+        <tr>
+          <th scope="row">Университет</th>
+          <td>{{ed.university}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Факультет</th>
+          <td>{{ed.faculty}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Специализация</th>
+          <td>{{ed.specialization}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Дата выпуска</th>
+          <td>{{ed.graduation_year}}</td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+  <br />
+  <br />
+
+  {%endblock %}
+</body>
+
