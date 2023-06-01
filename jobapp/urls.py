@@ -5,7 +5,7 @@ from jobapp import views
 app_name = "jobapp"
 
 urlpatterns = [
-    path('', RedirectView.as_view(url="news/")),
+    path('', views.job_list_view, name='job-list'),
     path('jobs/', views.job_list_view, name='job-list'),
     path('jobs/create/', views.create_job_view, name='create-job'),
     path('job/<int:id>/', views.single_job_view, name='single-job'),

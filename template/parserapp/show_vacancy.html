@@ -5,15 +5,25 @@
 {% block content %}
 <div class="container">
     <h1 class="py-5">Подборка вакансий</h1>
-    {% for item in vacancy %}
-    <div class="border border-4 my-3 p-2">
-        <h3>{{ item.title }}</h3>
-        <h5>{{ item.created_date }}</h5>
-        <p>Зарплата: {{ item.salary }}</p>
-        <a href="{{ item.url }}">{{ item.name_company }}</a>
-        <p>{{ item.adress_company }}</p>
-        <p>Ключевые навыки: {{ item.key_skills }}</p>
-    </div>    
-    {% endfor %}
+    {% if vacancy %}
+        {% for item in vacancy %}
+        <div class="border border-4 my-3 p-2">
+            <h3>{{ item.title }}</h3>
+            <h5>{{ item.created_date }}</h5>
+            <p>Зарплата: {{ item.salary }}</p>
+            <a href="{{ item.url }}">{{ item.name_company }}</a>
+            <p>{{ item.adress_company }}</p>
+            <p>Ключевые навыки: {{ item.key_skills }}</p>
+        </div>    
+        {% endfor %}
+    {% else %}
+        <h3>Список пуст</h3>
+        <br>
+        <h3>Сначала запустите подбоку вакансий на вкладке парсера</h3>
+        <br>
+        <br>
+        <br>
+        <br>
+    {% endif%}
 </div>
 {% endblock content %}
