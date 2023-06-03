@@ -11,6 +11,8 @@ from jobapp.models import Resume
 from jobapp.permission import user_is_employee
 from users.forms import *
 from django.core.paginator import Paginator
+import os
+
 
 class ProfilePageView(TemplateView):
     template_name = "users/profile.html"
@@ -114,7 +116,7 @@ def user_logout(request):
     Provide the ability to logout
     """
     auth.logout(request)
-    messages.success(request, 'You are Successfully logged out')
+    # messages.success(request, 'You are Successfully logged out')
     return redirect('users:login')
 
 
@@ -127,7 +129,6 @@ def resume_add(request):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = user
-
             instance.save()
             form.save()
             return redirect(reverse('users:show-resume', kwargs={'id': user.id }))
@@ -162,7 +163,8 @@ def experience_add(request):
             instance.save()
             form.save()
             return redirect(reverse('users:show-resume', kwargs={'id': user.id }))
-
+        else:
+            messages.error(request, 'Не все поля заполнены')
 
     context = {
         'form': form,
@@ -183,6 +185,8 @@ def education_add(request):
             instance.save()
             form.save()
             return redirect(reverse('users:show-resume', kwargs={'id': user.id }))
+        else:
+            messages.error(request, 'Не все поля заполнены')
 
     context = {
         'form': form,
@@ -230,20 +234,40 @@ def employee_edit_resume(request, id=id):
     """
     Handle Employee Resume Update Functionality
 
-    """
-    resume = get_object_or_404(Resume, user_id=id)
-    form = EmployeeResumeEditForm(request.POST or None, instance=resume)
-    if form.is_valid():
-        form = form.save()
-        messages.success(request, 'Ваше резюме успешно обновлено!')
-        return redirect(reverse("users:edit-resume", kwargs={
-            'id': form.user_id
-        }))
-    context = {
-        'resume': resume,
+    """  
+    resume = Resume.objects.filter(user_id=id).first()
+    experience =  Experience.objects.filter(user_id=id).first()
+    education =  Education.objects.filter(user_id=id).first() 
+    if not resume:
+        return redirect('users:add-resume')
+    else:
+        form = ResumeForm(instance=resume)
+        form2 = ExperienceForm(instance=experience)
+        # form3 = EducationForm(instance=education)
+        if request.method=='POST':
+            form = ResumeForm(request.POST,request.FILES,instance=resume)
+            form2 = ExperienceForm(request.POST,request.FILES,instance=experience)
+            # form3 = EducationForm(request.POST,request.FILES,instance=education)
+                
+            if form.is_valid() and  form2.is_valid:                    
+                form.save()        
+                form2.save()
+                # form3.save()
+                    
+                messages.success(request, 'Ваше резюме успешно обновлено!')
+                return redirect(reverse("users:show-resume", kwargs={'id': resume.user_id }))
+            else:
+                messages.error(request, {request.error})
+                
+        context = {
+                    'resume': resume,
+                    'form': form,
+                    'form2': form2,
+                    # 'form3': form3
+                        
+                    }
 
-        'form': form,
-       
-    }
+        return render(request, 'users/employee-edit-resume.html', context)
 
-    return render(request, 'users/employee-edit-resume.html', context)
+        
+
