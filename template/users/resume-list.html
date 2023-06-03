@@ -17,25 +17,7 @@
         <a href="{% url 'users:resume-single' resume.user_id %}" class="block__16443 min-h text-center d-block">
           <span class="custom-icon mx-auto"><span class="icon-magnet d-block"></span></span>
           <h3>{{ resume.title }}</h3>
-          <ul class="job-listing-meta list-unstyled pl-3 mb-0">
-            <li class="menu-fix mb-2">
-              {% if job.job_type == '1' %}
-              <span class="badge badge-primary">
-                Full Time
-              </span>
-              {% elif job.job_type == '2'%}
-              <span class="badge badge-danger">
-                Part Time
-              </span>
-              {% else  %}
-              <span class="badge badge-info">
-                Internship
-              </span>
-              {% endif %}</li>
-            <li class="badge badge-secondary menu-fix mb-2"> {{ job.location }}</li>
-          </ul>
-          <p>{{ job.description | safe | truncatechars:150}}</p>
-        </a>
+          </a>
       </div>
       {% endfor %}
     </div>
