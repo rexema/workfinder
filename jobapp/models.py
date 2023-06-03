@@ -99,12 +99,12 @@ class Experience(models.Model):
     """
     Модель Опыт работы
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     start_date = models.DateField(default=None, verbose_name='Начало работы',null=True, blank=True)
     end_date = models.DateField(default=None, verbose_name='Окончание',null=True, blank=True)
-    company = models.CharField(default=None, verbose_name='Организация', max_length=100)
-    position = models.CharField(default=None, verbose_name='Должность', max_length=100)
-    responsibilities = models.TextField(default=None, verbose_name='Обязанности')
+    company = models.CharField(default=None, verbose_name='Организация', max_length=100,null=True, blank=True)
+    position = models.CharField(default=None, verbose_name='Должность', max_length=100,null=True, blank=True)
+    responsibilities = models.TextField(default=None, verbose_name='Обязанности',null=True, blank=True)
 
 
 class Education(models.Model):
