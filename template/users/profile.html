@@ -19,6 +19,7 @@
     <p>{{ user.gender }}</p>
     
     <button class="btn btn-outline-danger my-5"><a href="{% url 'users:edit-profile' id=user.id %}" class="nav-link link-dark px-4">Редактировать Профиль</a></button>
+    <button class="btn btn-outline-danger my-5"><a href="{% url 'users:show-resume' id=user.id %}" class="nav-link link-dark px-4">Посмотреть Резюме</a></button>
 </div>
 
 

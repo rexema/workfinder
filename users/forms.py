@@ -121,9 +121,9 @@ class UserLoginForm(forms.Form):
     )
     password = forms.CharField(strip=False, widget=forms.PasswordInput(attrs={
 
-        'placeholder': 'Password',
+        'placeholder': 'Пароль'
     }))
-
+    password.label = 'Пароль'
     def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,
                  initial=None, error_class=ErrorList, label_suffix=None,
                  empty_permitted=False, field_order=None, use_required_attribute=None, renderer=None):
@@ -184,11 +184,19 @@ class ResumeForm(forms.ModelForm):
                 'placeholder': 'Например: Python-разработчик',
             }
         )
+        self.fields['title'].required=True
         self.fields['photo'].label = "Ваше фото :"
+        self.fields['photo'].widget.attrs.update(
+            {
+                'placeholder': 'Файл не выбран',
+            }
+        )
         self.fields['name'].label = "Имя :"
         self.fields['surname'].label = "Фамилия :"
         self.fields['date_birth'].label = "Дата рождения :"
+        self.fields['date_birth'].required=False
         self.fields['home_town'].label = "Город, в котором вы живёте :"
+        self.fields['home_town'].required=False
         self.fields['phone_num'].label = "Номер телефона :"
         self.fields['job_position'].label = "Желаемая должность :"
         self.fields['salary'].label = "Желаемая зарплата :"
@@ -215,11 +223,11 @@ class ResumeForm(forms.ModelForm):
             'date_birth': forms.DateInput(format='%m/%d/%Y',
                                           attrs={'class': 'form-control', 'placeholder': 'Select a date',
                                                  'type': 'date'}),
-            'photo': forms.FileInput(attrs={'accept': 'image/*'})
+            'photo': forms.FileInput(attrs={'accept': 'image/*', 'style':"height: 200px ; width : 200px ;"})
         }
 
     def save(self, commit=True):
-        resume = super(ResumeForm, self).save(commit=False)
+        resume =  super(ResumeForm, self).save(commit=False)
         if commit:
             resume.save()
         return resume
@@ -230,7 +238,9 @@ class ExperienceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
         self.fields['start_date'].label = "Начало работы"
+        self.fields['start_date'].required=False
         self.fields['end_date'].label = "Окончание"
+        self.fields['end_date'].required=False
         self.fields['company'].label = "Организация"
         self.fields['position'].label = "Должность"
         self.fields['responsibilities'].label = "Обязанности на рабочем месте"
@@ -260,15 +270,14 @@ class ExperienceForm(forms.ModelForm):
 
 
        
-class EducationForm(forms.ModelForm):
-    
-      class Meta:
+class EducationForm(forms.ModelForm):     
+       class Meta:
             model = Education
             fields = ['university',  'faculty', 'specialization', 'graduation_year']
             widgets = {'graduation_year': forms.DateInput(format='%m/%d/%Y',
                                           attrs={'class': 'form-control', 'placeholder': 'Select a date',
                                                  'type': 'date'})}
-     
+        
 
 class EmployeeResumeEditForm(forms.ModelForm):   
    
@@ -286,10 +295,12 @@ class EmployeeResumeEditForm(forms.ModelForm):
             "salary",
             "skills",
             "about_me"]
-
-    def save(self, commit=True):
+            
+    
+    def save(self, commit=True):       
         resume = self.instance
-        resume.title = self.cleaned_data['title']
+        resume.title = self.cleaned_data['title']       
+        resume.photo = self.cleaned_data['photo']
         resume.name = self.cleaned_data['name']
         resume.surname = self.cleaned_data['surname']       
         resume.home_town = self.cleaned_data['home_town']
@@ -297,10 +308,8 @@ class EmployeeResumeEditForm(forms.ModelForm):
         resume.job_position = self.cleaned_data['job_position']
         resume.salary = self.cleaned_data['salary']
         resume.skills = self.cleaned_data['skills']
-        resume.about_me = self.cleaned_data['about_me']
-        if self.cleaned_data['photo']:
-            resume.photo = self.cleaned_data['photo']
-
+        resume.about_me = self.cleaned_data['about_me']        
+       
         if commit:
             resume.save()
         return resume
