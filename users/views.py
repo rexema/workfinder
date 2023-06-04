@@ -124,6 +124,7 @@ def resume_add(request):
 
     form = ResumeForm(request.POST, request.FILES)
     user = get_object_or_404(User, id=request.user.id)
+    
     if request.method == 'POST':
 
         if form.is_valid():
@@ -133,13 +134,13 @@ def resume_add(request):
             form.save()
             return redirect(reverse('users:show-resume', kwargs={'id': user.id }))
     context = {
-        'form': form,
+            'form': form,
 
 
-    }
+        }
 
     return render(request, 'users/employee-resume.html', context)
-
+    
 
 def show_resume(request, id):
     """
@@ -277,7 +278,7 @@ def employee_edit_resume(request, id=id):
                     'resume': resume,
                     'form': form,
                     'form2': form2,
-                    # 'form3': form3
+                    'form3': form3
                         
                     }
 
