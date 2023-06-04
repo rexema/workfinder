@@ -234,25 +234,39 @@ def employee_edit_resume(request, id=id):
     """
     Handle Employee Resume Update Functionality
 
-    """  
+    """
+
     resume = Resume.objects.filter(user_id=id).first()
     experience =  Experience.objects.filter(user_id=id).first()
-    education =  Education.objects.filter(user_id=id).first() 
+    education =  Education.objects.filter(user_id=id).first()
+
     if not resume:
         return redirect('users:add-resume')
     else:
         form = ResumeForm(instance=resume)
         form2 = ExperienceForm(instance=experience)
-        # form3 = EducationForm(instance=education)
+        form3 = EducationForm(instance=education)
         if request.method=='POST':
+            form3 = EducationForm(request.POST,request.FILES,instance=education)
             form = ResumeForm(request.POST,request.FILES,instance=resume)
             form2 = ExperienceForm(request.POST,request.FILES,instance=experience)
-            # form3 = EducationForm(request.POST,request.FILES,instance=education)
-                
-            if form.is_valid() and  form2.is_valid:                    
-                form.save()        
+            user = get_object_or_404(User, id=request.user.id)
+      
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.user = user
+                instance.save()
+                form.save()
+            if form2.is_valid:
+                instance = form2.save(commit=False)
+                instance.user = user
+                instance.save()
                 form2.save()
-                # form3.save()
+            if form2.is_valid:
+                instance = form3.save(commit=False)
+                instance.user = user
+                instance.save()
+                form3.save()
                     
                 messages.success(request, 'Ваше резюме успешно обновлено!')
                 return redirect(reverse("users:show-resume", kwargs={'id': resume.user_id }))

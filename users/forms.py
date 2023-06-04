@@ -242,8 +242,11 @@ class ExperienceForm(forms.ModelForm):
         self.fields['end_date'].label = "Окончание"
         self.fields['end_date'].required=False
         self.fields['company'].label = "Организация"
+        self.fields['company'].required=False
         self.fields['position'].label = "Должность"
+        self.fields['position'].required=False
         self.fields['responsibilities'].label = "Обязанности на рабочем месте"
+        self.fields['responsibilities'].required=False
         
 
     class Meta:

@@ -99,7 +99,7 @@ class Experience(models.Model):
     """
     Модель Опыт работы
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     start_date = models.DateField(default=None, verbose_name='Начало работы',null=True, blank=True)
     end_date = models.DateField(default=None, verbose_name='Окончание',null=True, blank=True)
     company = models.CharField(default=None, verbose_name='Организация', max_length=100,null=True, blank=True)
@@ -112,8 +112,8 @@ class Education(models.Model):
     Модель Образование
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    university = models.CharField(default=None, verbose_name='Учебное заведение', max_length=200)
-    faculty = models.CharField(default=None, verbose_name='Факультет', max_length=200)
-    specialization = models.CharField(default=None, verbose_name='Специализация', max_length=200)
-    graduation_year = models.DateField(default=None, verbose_name='Год окончания')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    university = models.CharField(default=None, verbose_name='Учебное заведение', max_length=200,null=True, blank=True)
+    faculty = models.CharField(default=None, verbose_name='Факультет', max_length=200,null=True, blank=True)
+    specialization = models.CharField(default=None, verbose_name='Специализация', max_length=200,null=True, blank=True)
+    graduation_year = models.DateField(default=None, verbose_name='Год окончания',null=True, blank=True)
