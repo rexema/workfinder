@@ -72,7 +72,7 @@ class Resume(models.Model):
     """
     Модель резюме
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Соискатель', related_name='resumes')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Соискатель', related_name='resumes')
 
     title = models.CharField(default=None, max_length=255, verbose_name='Название резюме')
     photo = models.ImageField(null=True, blank=True, upload_to='images/', height_field=None, width_field=None,
