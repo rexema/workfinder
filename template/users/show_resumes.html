@@ -21,6 +21,10 @@
           <th scope="row">Имя соискателя</th>
           <td>{{i.name}} {{i.surname}}</td>
         </tr>
+        <tr>
+          <th scope="row">Email</th>
+          <td>{{i.user.email}}</td>
+        </tr>
         {% if i.date_birth %}
         <tr>
           <th scope="row">Дата рождения</th>
@@ -66,20 +70,24 @@
       </tbody>
       {% endfor %}
     </table>
+    {% if experience %}
     <div class="header-h1">
       <h1>Опыт работы</h1>
     </div>
     <table class="table">
       {% for e in experience %}
-
       <tbody>
+        {% if e.company %}
         <tr>
           <th scope="row">Компания</th>
           <td>{{e.company}}</td>
         </tr>
+        {% endif %}
+        {% if e.position %}
          <th scope="row">Должность</th>
           <td>{{e.position}}</td>
         </tr>
+        {% endif %}
         {% if e.start_date %}
         <tr>
           <th scope="row">Дата начала работы</th>
@@ -92,17 +100,21 @@
           <td>{{e.end_date}}</td>
         </tr>
         {% endif%}
+        {% if e.responsibilities %}
         <tr>
           <th scope="row">Обязанности на рабочем месте</th>
           <td>{{e.responsibilities}}</td>
         </tr>
+        {% endif %}
         
       </tbody>
       {% endfor %}
     </table>
+    {% endif %}
       
 
     <br />
+    {% if education %}
     <div class="header-h1">
       <h1>Образование</h1>
     </div>
@@ -110,33 +122,42 @@
     <table class="table">
       {% for ed in education %}
       <tbody>
+        {% if ed.university %}
         <tr>
           <th scope="row">Университет</th>
           <td>{{ed.university}}</td>
         </tr>
+        {% endif %}
+        {% if ed.faculty %}
         <tr>
           <th scope="row">Факультет</th>
           <td>{{ed.faculty}}</td>
         </tr>
+        {% endif%}
+        {% if ed.specialization %}
         <tr>
           <th scope="row">Специализация</th>
           <td>{{ed.specialization}}</td>
         </tr>
+        {% endif %}
+        {% if ed.graduation_year %}
         <tr>
           <th scope="row">Дата выпуска</th>
           <td>{{ed.graduation_year}}</td>
         </tr>
+        {% endif%}
       </tbody>
+      
+   
       {% endfor %}
     </table>
- 
-  <br />
-  <br />
-    <button class="btn btn-outline-danger my-5"><a href="{% url 'users:add-education' %}" class="nav-link link-dark px-4">Добавить образование</a></button>
-    <button class="btn btn-outline-danger my-5"><a href="{% url 'users:add-experience' %}" class="nav-link link-dark px-4">Добавить опыт работы</a></button>
-  
+    {% endif %}
+   <br>
+   <br>
+   <button class="btn btn-outline-danger my-5"><a href="{% url 'users:add-education' %}" class="nav-link link-dark px-4">Добавить образование</a></button>
+   <button class="btn btn-outline-danger my-5"><a href="{% url 'users:add-experience' %}" class="nav-link link-dark px-4">Добавить опыт работы</a></button>
   </div>
-
-  {%endblock %}
+    {%endblock %}
 
 </body>
+  
