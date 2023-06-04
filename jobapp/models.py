@@ -36,7 +36,7 @@ class Job(models.Model):
     company_name = models.CharField(max_length=300)
     company_description = models.TextField()
     url = models.URLField(max_length=200)
-    is_published = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=True)
     is_closed = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now=True)
 
@@ -86,6 +86,7 @@ class Resume(models.Model):
     salary = models.PositiveIntegerField( verbose_name='Желаемая заработная плата',null=True, blank=True)
     skills = models.CharField( verbose_name='Профессиональные навыки', max_length=100,null=True, blank=True)
     about_me = models.TextField(verbose_name='О себе',null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания записи')
 
     def __str__(self):
         return self.title

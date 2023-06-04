@@ -1,5 +1,5 @@
 from django.urls import path
-from django.views.generic import RedirectView
+
 from jobapp import views
 
 app_name = "jobapp"
@@ -12,7 +12,7 @@ urlpatterns = [
     path('apply-job/<int:id>/', views.apply_job_view, name='apply-job'),
     path('bookmark-job/<int:id>/', views.job_bookmark_view, name='bookmark-job'),
     path('news/', views.NewsPageView.as_view(), name='news'),
-    #path('news/detail/<int:id>/', ...),
+    # path('news/detail/<int:id>/', ...),
     path('about/', views.AboutPageView.as_view(), name='about'),
     path('contacts/', views.ContactsPageView.as_view(), name='contacts'),
     path('', views.home_view, name='home'),
@@ -24,4 +24,5 @@ urlpatterns = [
     path('dashboard/employer/close/<int:id>/', views.make_complete_job_view, name='complete'),
     path('dashboard/employer/delete/<int:id>/', views.delete_job_view, name='delete'),
     path('dashboard/employer/delete/<int:id>/', views.delete_job_view, name='delete'),
+    path('dashboard/employee/delete-bookmark/<int:id>/', views.delete_bookmark_view, name='delete-bookmark'),
 ]

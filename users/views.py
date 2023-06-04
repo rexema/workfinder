@@ -202,7 +202,7 @@ def resume_list_view(request):
     """
     Отобразить список вакансий
     """
-    resume_list = Resume.objects.all()
+    resume_list = Resume.objects.all().order_by('-created_at')
     paginator = Paginator(resume_list, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
