@@ -58,40 +58,44 @@ for i in range(10):
         timestamp=timezone.now()
     )
 
-# Создаем резюме
-for i in range(10):
-    resume = Resume.objects.create(
-        user=random.choice(users),
-        title=fake.job(),
-        photo=None,
-        name=fake.first_name(),
-        surname=fake.last_name(),
-        date_birth=fake.date_of_birth(),
-        home_town=fake.city(),
-        phone_num=fake.phone_number(),
-        job_position=fake.job(),
-        salary=fake.random_int(min=1000, max=100000),
-        skills=fake.text(),
-        about_me=fake.text()
-    )
+try:
+    # Создаем резюме
+    for i in range(10):
+        resume = Resume.objects.create(
+            user=random.choice(users),
+            title=fake.job(),
+            photo=None,
+            name=fake.first_name(),
+            surname=fake.last_name(),
+            date_birth=fake.date_of_birth(),
+            home_town=fake.city(),
+            phone_num=fake.phone_number(),
+            job_position=fake.job(),
+            salary=fake.random_int(min=1000, max=100000),
+            skills=fake.text(),
+            about_me=fake.text()
+        )
 
-# Создаем опыт работы
-for i in range(10):
-    experience = Experience.objects.create(
-        user=random.choice(users),
-        start_date=fake.date_between(start_date='-10y', end_date='today'),
-        end_date=fake.date_between(start_date='-10y', end_date='today'),
-        company=fake.company(),
-        position=fake.job(),
-        responsibilities=fake.text()
-    )
+    # Создаем опыт работы
+    for i in range(10):
+        experience = Experience.objects.create(
+            user=random.choice(users),
+            start_date=fake.date_between(start_date='-10y', end_date='today'),
+            end_date=fake.date_between(start_date='-10y', end_date='today'),
+            company=fake.company(),
+            position=fake.job(),
+            responsibilities=fake.text()
+        )
 
-# Создаем образование
-for i in range(10):
-    education = Education.objects.create(
-        user=random.choice(users),
-        university=fake.company(),
-        faculty=fake.text(),
-        specialization=fake.text(),
-        graduation_year=fake.date_between(start_date='-10y', end_date='today')
-    )
+    # Создаем образование
+    for i in range(10):
+        education = Education.objects.create(
+            user=random.choice(users),
+            university=fake.company(),
+            faculty=fake.text(),
+            specialization=fake.text(),
+            graduation_year=fake.date_between(start_date='-10y', end_date='today')
+        )
+except Exception as e:
+    print(f'Exception =>>> {e}')
+    
