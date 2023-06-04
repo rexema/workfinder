@@ -18,6 +18,11 @@
           <span class="custom-icon mx-auto"><span class="icon-magnet d-block"></span></span>
           <h3>{{ resume.title }}</h3>
           </a>
+          <div><p>
+            {% if resume.skills %}
+            {{ resume.skills }}
+            {% endif %}
+          </p></div>
       </div>
       {% endfor %}
     </div>
