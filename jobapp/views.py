@@ -14,8 +14,10 @@ from jobapp.permission import user_is_employer, user_is_employee
 User = get_user_model()
 
 
-def home_view(request):
-    return render(request, 'jobapp/index.html')
+def index(request):
+    jobs = Job.objects.all()
+    context = {'jobs': jobs}
+    return render(request, 'jobapp/index.html', context)
 
 
 class NewsPageView(TemplateView):
@@ -216,12 +218,10 @@ def dashboard_view(request):
 @user_is_employer
 def delete_job_view(request, id):
     job = get_object_or_404(Job, id=id, user=request.user.id)
+    job.delete()
+    messages.success(request, 'Your Job Post was successfully deleted!')
 
-    if job:
-        job.delete()
-        messages.success(request, 'Your Job Post was successfully deleted!')
-
-    return redirect('jobapp:dashboard')
+    return redirect('jobapp:job-list')
 
 
 @login_required(login_url=reverse_lazy('users:login'))

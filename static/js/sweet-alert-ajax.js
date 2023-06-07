@@ -1,51 +1,50 @@
-function call_sw_alert_func(route, id, message){
-    // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    
-    swal({
-      title: "Are you sure?",
-      text: message,
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
+function call_sw_alert_func(route, id, message) {
+     swal({
+        title: "Вы уверены?",
+        text: message,
+        icon: "warning",
+        buttons: {
+            cancel: "Отмена",
+            confirm: "Да"
+        },
+        dangerMode: true,
     })
-    .then((willDelete) => {
-      if (willDelete) {
-        // var CSRF_TOKEN = `{{ csrf_token() }}`;
-        // console.log(CSRF_TOKEN);
-        $.ajax({
-            type: 'GET',
-            url: route,
-            // data : {'_method' : 'DELETE', '_token' : CSRF_TOKEN },
-            success : function(data) {
-              if (route.includes('delete')) { 
-                swal({
-                  title: "Delete Done!",
-                  text: "Your Job Was Deleted!",
-                  icon: "success",
-                  button: "Done",
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'GET',
+                    url: route,
+                    success: function (data) {
+                        if (route.includes('delete')) {
+                            swal({
+                                title: "Удаление выполнено!",
+                                text: "Ваша вакансия была удалена!",
+                                icon: "success",
+                                button: "Готово",
+                            }).then(() => {
+                                window.location.href = '/';
+                            });
+                            $("#row_" + id).remove();
+                        } else if (route.includes('close')) {
+                            swal({
+                                title: "Готово!",
+                                text: "Ваша вакансия была закрыта!",
+                                icon: "success",
+                                button: "Готово",
+                            });
+                            $("#change_job_status_" + id).html('<a class="text-white btn btn-success btn-sm" role="button">Снято с публикации</a>')
+                        }
+                    },
+                     error: function () {
+                        swal({
+                            title: 'Что-то пошло не так!',
+                            // text: data.message,
+                            timer: '1500'
+                        })
+                    }
                 });
-                $("#row_"+id).remove();
-              }else if(route.includes('close')){
-                swal({
-                  title: "Done!",
-                  text: "Your Job was marked closed!",
-                  icon: "success",
-                  button: "Done",
-                });
-                $("#change_job_status_"+id).html('<a class="text-white btn btn-success btn-sm" role="button">Closed</a>')
-              }
-            },
-
-            error : function () {
-                swal({
-                    title: 'Something went wrong !',
-                    // text: data.message,
-                    timer: '1500'
-                })
+            } else {
+                swal("Ваша публикация в безопасности!");
             }
         });
-      } else {
-        swal("Your Post Is Safe!");
-      }
-    });
-  }
+}

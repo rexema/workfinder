@@ -14,6 +14,7 @@ class JobForm(forms.ModelForm):
         self.fields['tags'].label = "Теги :"
         self.fields['company_name'].label = "Наименование компании :"
         self.fields['url'].label = "Адрес сайта :"
+        self.fields['is_published'].label = "Опубликовать :"
 
         self.fields['title'].widget.attrs.update(
             {
@@ -47,6 +48,8 @@ class JobForm(forms.ModelForm):
             }
         )
 
+        self.fields['is_published'].widget.attrs.update({'class': 'checkbox'})
+
     class Meta:
         model = Job
 
@@ -60,7 +63,8 @@ class JobForm(forms.ModelForm):
             "tags",
             "company_name",
             "company_description",
-            "url"
+            "url",
+            "is_published",
         ]
 
     def clean_job_type(self):
@@ -82,6 +86,13 @@ class JobForm(forms.ModelForm):
         if commit:
             job.save()
         return job
+
+    def clean_is_published(self):
+        is_published = self.cleaned_data.get('is_published')
+
+        if not is_published:
+            raise forms.ValidationError("Поле 'Опубликовать' обязательно для заполнения")
+        return is_published
 
 
 class JobApplyForm(forms.ModelForm):
@@ -107,6 +118,7 @@ class JobEditForm(forms.ModelForm):
         # self.fields['tags'].label = "Теги :"
         self.fields['company_name'].label = "Наименование компании :"
         self.fields['url'].label = "Адрес сайта :"
+        self.fields['is_published'].label = "Опубликовать :"
 
         self.fields['title'].widget.attrs.update(
             {
@@ -134,6 +146,7 @@ class JobEditForm(forms.ModelForm):
                 'placeholder': 'https://example.com',
             }
         )
+        self.fields['is_published'].widget.attrs.update({'class': 'checkbox'})
 
     class Meta:
         model = Job
@@ -147,7 +160,8 @@ class JobEditForm(forms.ModelForm):
             "description",
             "company_name",
             "company_description",
-            "url"
+            "url",
+            "is_published"
         ]
 
     def clean_job_type(self):
